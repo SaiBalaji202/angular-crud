@@ -7,7 +7,6 @@ const routes = [
   { path: '', component: ListCompaniesComponent },
   {
     path: 'company',
-    pathMatch: 'full',
     children: [
       { path: '', redirectTo: 'add', pathMatch: 'full' },
       {
