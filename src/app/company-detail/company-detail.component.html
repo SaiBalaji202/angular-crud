@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" style="margin-top: 10px;">
     <div style="text-align: center;" class="col-md">
       <h4 *ngIf="params.operation==='add'; else view">Add New Company Detail</h4>
       <ng-template #view>
@@ -71,6 +71,11 @@
             </button>
         </div>
     </form>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-outline-dark" (click)="router.navigateByUrl('/')">Close</button>
+    </div>
   </div>
   <!-- <div class="row">
     <div class="col-md float-right" *ngIf="params.operation !== 'view'">
