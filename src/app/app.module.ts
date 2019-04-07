@@ -10,7 +10,6 @@ import { ListCompaniesComponent } from './list-companies/list-companies.componen
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { ItemCompanyComponent } from './item-company/item-company.component';
 import { NavComponent } from './nav/nav.component';
-import { DeleteCompanyComponent } from './delete-company/delete-company.component';
 import { CompaniesService } from './companies.service';
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { CompaniesService } from './companies.service';
     CompanyDetailComponent,
     ItemCompanyComponent,
     NavComponent,
-    DeleteCompanyComponent,
   ],
   imports: [
     BrowserModule,

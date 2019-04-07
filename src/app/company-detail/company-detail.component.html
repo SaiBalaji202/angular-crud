@@ -15,8 +15,11 @@
     <form class="col-md" [formGroup]="companyForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="companyName">Company Name</label>
-        <input type="text" class="form-control" id="companyName" aria-describedby="companyNameHelp"
-
+        <input type="text" class="form-control" id="companyName"
+          aria-describedby="companyNameHelp"
+          [ngClass]="{'invalid-control':
+            companyForm.get('companyName').invalid && companyForm.get('companyName').touched
+          }"
           placeholder="Enter the Company Name" formControlName="companyName">
         <small id="companyNameHelp" class="form-text text-muted">We'll never share the company details with anyone
           else.</small>
@@ -24,7 +27,11 @@
 
       <div class="form-group">
         <label for="companyMainBranch">Main Branch</label>
-        <input type="text" class="form-control" id="companyMainBranch" placeholder="Main Branch"
+        <input type="text" class="form-control" id="companyMainBranch"
+        [ngClass]="{'invalid-control':
+            companyForm.get('mainBranch').invalid && companyForm.get('mainBranch').touched
+          }"
+        placeholder="Main Branch"
         formControlName="mainBranch">
       </div>
 
@@ -39,13 +46,33 @@
 
       <div class="form-group" *ngIf="includeSubBranch">
         <label for="companySubBranches">Sub Branches</label>
-        <textarea rows="3" class="form-control" id="companySubBranches" placeholder="Sub Branches"
-          aria-describedby="companySubBranchesHelp" formControlName="subBranches"></textarea>
+        <textarea rows="3" class="form-control" id="companySubBranches"
+          [ngClass]="{'invalid-control':
+            includeSubBranch &&
+            companyForm.get('subBranches').invalid &&
+            companyForm.get('subBranches').touched
+          }"
+          placeholder="Sub Branches"
+          aria-describedby="companySubBranchesHelp"
+          formControlName="subBranches"></textarea>
         <small id="companySubBranchesHelp" class="form-text text-muted">Enter each branch sperated by comma + single space</small>
       </div>
+
+        <div class="form-group" *ngIf="params.operation !== 'view'">
+            <button type="button" class="btn btn-outline-dark" (click)="toggleSubBranchInclude()">
+              {{includeSubBranch ? "Delete SubBranches" : "Add SubBranches"}}
+            </button>
+        </div>
+
+        <div class="form-group" style="margin-top: 10px"  *ngIf="params.operation !== 'view'">
+            <button type="button" style="margin-right: 10px;" class="btn btn-outline-dark" (click)="resetForm()">Clear</button>
+            <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': companyForm.invalid}">
+              {{params.operation === 'add' ? 'Add' : 'Update' }}
+            </button>
+        </div>
     </form>
   </div>
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-md float-right" *ngIf="params.operation !== 'view'">
         <button class="btn btn-outline-dark" (click)="toggleSubBranchInclude()">
           {{includeSubBranch ? "Delete SubBranches" : "Add SubBranches"}}
@@ -61,5 +88,5 @@
           {{params.operation === 'add' ? 'Add' : 'Update' }}
         </button>
       </div>
-  </div>
+  </div> -->
 </div>
