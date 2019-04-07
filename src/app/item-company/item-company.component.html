@@ -1,0 +1,11 @@
+<div class="list-group-item list-group-item-action clearfix" style="cursor: pointer; margin-bottom: 5px;" [routerLink]="'/company/view/' + company.name">
+  {{company.name}}
+  <span class="float-right">
+    <button class="btn btn-xs btn-warning" style="margin-right: 20px;" (click)="onEdit()" >
+      Edit
+    </button>
+    <button class="btn btn-xs btn-danger" (click)="onDelete()">
+      Delete
+    </button>
+  </span>
+</div>

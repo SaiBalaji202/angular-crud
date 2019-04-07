@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div style="text-align: center;" class="col-md">
+      <h4 *ngIf="params.operation==='add'; else view">Add New Company Detail</h4>
+      <ng-template #view>
+        <h4 *ngIf="params.operation==='view'; else edit">{{params.name}} Details</h4>
+      </ng-template>
+      <ng-template #edit>
+        <h4 *ngIf="params.operation==='edit'">Edit {{params.name}} Details</h4>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="row">
+    <form class="col-md" [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="companyName">Company Name</label>
+        <input type="text" class="form-control" id="companyName" aria-describedby="companyNameHelp"
+
+          placeholder="Enter the Company Name" formControlName="companyName">
+        <small id="companyNameHelp" class="form-text text-muted">We'll never share the company details with anyone
+          else.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="companyMainBranch">Main Branch</label>
+        <input type="text" class="form-control" id="companyMainBranch" placeholder="Main Branch"
+          formControlName="mainBranch">
+      </div>
+
+      <!-- <div class="form-group" *ngIf="companyForm.get('branches').controls.length>0"
+        formArrayName="branches">
+        <label for="companyBranches">Sub Branch(es)</label>
+        <div *ngFor="let branchControl of companyForm.get('branches').controls; let i = index">
+          <input type="text" class="form-control"
+              placeholder="Sub Branch" [formControlName]="i">
+          </div>
+      </div> -->
+      <div *ngIf="params.operation !== 'view'" class="form-group float-right">
+        <button class="btn btn-outline-dark" (click)="toggleSubBranchInclude()">
+          {{includeSubBranch ? "Delete SubBranches" : "Add SubBranches"}}
+        </button>
+      </div>
+      <div class="form-group" *ngIf="includeSubBranch">
+        <label for="companySubBranches">Sub Branches</label>
+        <textarea rows="3" class="form-control" id="companySubBranches" placeholder="Sub Branches"
+          aria-describedby="companySubBranchesHelp" formControlName="subBranches"></textarea>
+        <small id="companySubBranchesHelp" class="form-text text-muted">Enter each branch sperated by comma</small>
+      </div>
+      <div *ngIf="params.operation !== 'view'">
+        <button type="button" style="margin-right: 10px;" class="btn btn-outline-dark" (click)="resetForm()">Clear</button>
+        <button type="submit" class="btn btn-primary"
+          [ngClass]="{'disabled': companyForm.invalid}">
+          {{params.operation === 'add' ? 'Add' : 'Update' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

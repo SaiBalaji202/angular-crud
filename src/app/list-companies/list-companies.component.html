@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+      <div style="text-align: center;"  class="col-md">
+        <h4 >Total No of Companies: {{companies.length}}</h4>
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-md">
+      <div class="list-group" *ngFor="let company of companies">
+        <app-item-company [company]="company"></app-item-company>
+      </div>
+    </div>
+  </div>
+</div>
