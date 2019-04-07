@@ -19,7 +19,7 @@ export class ItemCompanyComponent implements OnInit {
 
   onDelete() {
     this.companyService.deleteCompany(this.company);
-    this.toastr.error(this.company.name + ' Deleted Successfully');
+    this.toastr.success(this.company.name + ' Deleted Successfully');
   }
 
   onEdit() {

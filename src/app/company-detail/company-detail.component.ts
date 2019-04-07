@@ -78,15 +78,21 @@ export class CompanyDetailComponent implements OnInit {
     const { companyName, mainBranch, subBranches } = this.companyForm.value;
     let msgToDisplay = '';
     if (this.params.operation === 'add') {
-      this.companyService.addCompany(companyName,
+      if(this.companyService.addCompany(companyName,
         mainBranch,
-        (subBranches && this.includeSubBranch) ? subBranches.split(', ') : null);
-      msgToDisplay = `${companyName} Added Successfully`;
+        (subBranches && this.includeSubBranch) ? subBranches.split(', ') : null))
+          msgToDisplay = `${companyName.toUpperCase()} Added Successfully`;
+      else {
+        msgToDisplay = `${companyName.toUpperCase()} Already Exists.  Try Updating its details`;
+        this.toastr.warning(msgToDisplay);
+        this.router.navigateByUrl(`/company/edit/${companyName}`);
+        return;
+      }
     } else {
       this.companyService.updateCompany(this.params.name,
         mainBranch,
         (subBranches && this.includeSubBranch) ? subBranches.split(', ') : null);
-      msgToDisplay = `${this.params.name} Updated Successfully`;
+      msgToDisplay = `${this.params.name.toUpperCase()} Updated Successfully`;
     }
     this.toastr.success(msgToDisplay);
     this.router.navigateByUrl('/');

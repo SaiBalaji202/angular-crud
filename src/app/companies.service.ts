@@ -23,15 +23,19 @@ export class CompaniesService {
   }
 
   addCompany(name: string, mainBranch: string, subBranches: string[]) {
-    const companyToAdd = new Company(name, mainBranch, subBranches);
-    this.companies.push(companyToAdd);
-    this.companiesAltered.next();
+    if (!this.findCompany(name)) {
+      const companyToAdd = new Company(name, mainBranch, subBranches);
+      this.companies.push(companyToAdd);
+      this.companiesAltered.next();
+      return true;
+    }
+    return false;
   }
 
   findCompany(name: string): Company {
     for (let index = 0; index < this.companies.length; index++) {
       const company = this.companies[index];
-      if (company.name === name) {
+      if (company.name.trim().toLowerCase() === name.trim().toLowerCase()) {
         return new Company(company.name, company.mainBranch, company.subBranches);
       }
     }
