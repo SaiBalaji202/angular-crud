@@ -16,6 +16,7 @@ export class CompanyDetailComponent implements OnInit {
 
   constructor(private companyService: CompaniesService,
     private route: ActivatedRoute,
+    private router: Router,
     private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -27,7 +28,6 @@ export class CompanyDetailComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.params = params;
-      console.log(this.params);
       if (this.params.operation === 'view' || this.params.operation === 'edit') {
         this.loadDetail(this.params.name);
         this.companyForm.get('companyName').disable();
@@ -37,7 +37,6 @@ export class CompanyDetailComponent implements OnInit {
 
   loadDetail(name: string) {
     const company = this.companyService.findCompany(name);
-    console.log(company);
     this.companyForm.setValue({
       companyName: company.name,
       mainBranch: company.mainBranch,
@@ -50,6 +49,7 @@ export class CompanyDetailComponent implements OnInit {
 
   toggleSubBranchInclude() {
     this.includeSubBranch = !this.includeSubBranch;
+    this.companyForm.get('subBranches').updateValueAndValidity();
   }
 
   resetForm() {
@@ -76,17 +76,19 @@ export class CompanyDetailComponent implements OnInit {
 
   onSubmit() {
     const { companyName, mainBranch, subBranches } = this.companyForm.value;
+    let msgToDisplay = '';
     if (this.params.operation === 'add') {
       this.companyService.addCompany(companyName,
         mainBranch,
         (subBranches && this.includeSubBranch) ? subBranches.split(', ') : null);
-      this.toastr.success(companyName + ' Added Successfully');
+      msgToDisplay = `${companyName} Added Successfully`;
     } else {
       this.companyService.updateCompany(this.params.name,
         mainBranch,
         (subBranches && this.includeSubBranch) ? subBranches.split(', ') : null);
-      this.toastr.success(this.params.name + ' Updated Successfully');
+      msgToDisplay = `${this.params.name} Updated Successfully`;
     }
-    console.log('Submitted');
+    this.toastr.success(msgToDisplay);
+    this.router.navigateByUrl('/');
   }
 }

@@ -12,7 +12,7 @@
   </div>
 
   <div class="row">
-    <form class="col-md" [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+    <form class="col-md" [formGroup]="companyForm">
       <div class="form-group">
         <label for="companyName">Company Name</label>
         <input type="text" class="form-control" id="companyName" aria-describedby="companyNameHelp"
@@ -36,25 +36,30 @@
               placeholder="Sub Branch" [formControlName]="i">
           </div>
       </div> -->
-      <div *ngIf="params.operation !== 'view'" class="form-group float-right">
-        <button class="btn btn-outline-dark" (click)="toggleSubBranchInclude()">
-          {{includeSubBranch ? "Delete SubBranches" : "Add SubBranches"}}
-        </button>
-      </div>
+
       <div class="form-group" *ngIf="includeSubBranch">
         <label for="companySubBranches">Sub Branches</label>
         <textarea rows="3" class="form-control" id="companySubBranches" placeholder="Sub Branches"
           aria-describedby="companySubBranchesHelp" formControlName="subBranches"></textarea>
         <small id="companySubBranchesHelp" class="form-text text-muted">Enter each branch sperated by comma</small>
       </div>
-      <div *ngIf="params.operation !== 'view'">
+    </form>
+  </div>
+  <div class="row">
+    <div class="col-md float-right" *ngIf="params.operation !== 'view'">
+        <button class="btn btn-outline-dark" (click)="toggleSubBranchInclude()">
+          {{includeSubBranch ? "Delete SubBranches" : "Add SubBranches"}}
+        </button>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 10px" >
+      <div class="col-md" *ngIf="params.operation !== 'view'">
         <button type="button" style="margin-right: 10px;" class="btn btn-outline-dark" (click)="resetForm()">Clear</button>
-        <button type="submit" class="btn btn-primary"
-          [ngClass]="{'disabled': companyForm.invalid}">
+        <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': companyForm.invalid}"
+          (click)="onSubmit()">
           {{params.operation === 'add' ? 'Add' : 'Update' }}
         </button>
       </div>
-
-    </form>
   </div>
 </div>

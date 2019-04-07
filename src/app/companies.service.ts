@@ -19,14 +19,12 @@ export class CompaniesService {
 
   deleteCompany(companyToDelete: Company) {
     this.companies = this.companies.filter(company => company.name !== companyToDelete.name);
-    console.log(this.companies.length);
     this.companiesAltered.next();
   }
 
   addCompany(name: string, mainBranch: string, subBranches: string[]) {
     const companyToAdd = new Company(name, mainBranch, subBranches);
     this.companies.push(companyToAdd);
-    console.log(this.companies);
     this.companiesAltered.next();
   }
 
@@ -41,14 +39,12 @@ export class CompaniesService {
   }
 
   updateCompany(companyToUpdate: string, updatedMainBranch: string, updatedSubBranches: string[]) {
-    console.log(companyToUpdate);
     for (let index = 0; index < this.companies.length; index++) {
       const company = this.companies[index];
 
       if (company.name === companyToUpdate) {
         company.mainBranch = updatedMainBranch;
         company.subBranches = updatedSubBranches;
-        console.log(this.companies);
         this.companiesAltered.next();
         return;
       }
