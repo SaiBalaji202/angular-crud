@@ -1,9 +1,15 @@
 <div class="container">
-    <div class="row">
-      <div style="text-align: center;"  class="col-md">
+  <div class="row" style="margin-top: 10px;">
+      <div style="text-align: center;"  class="col-md" *ngIf="companies.length>0; else alert;">
         <h4 >Total No of Companies: {{companies.length}}</h4>
       </div>
-    </div>
+      <ng-template #alert>
+        <div style="text-align: center;" class="col-md alert alert-warning">
+          <strong>Warning!</strong>
+          There are no companies available to display
+        </div>
+      </ng-template>
+  </div>
   <div class="row">
     <div class="col-md">
       <div class="list-group" *ngFor="let company of companies">

@@ -12,7 +12,7 @@
   </div>
 
   <div class="row">
-    <form class="col-md" [formGroup]="companyForm">
+    <form class="col-md" [formGroup]="companyForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="companyName">Company Name</label>
         <input type="text" class="form-control" id="companyName" aria-describedby="companyNameHelp"
@@ -25,7 +25,7 @@
       <div class="form-group">
         <label for="companyMainBranch">Main Branch</label>
         <input type="text" class="form-control" id="companyMainBranch" placeholder="Main Branch"
-          formControlName="mainBranch">
+        formControlName="mainBranch">
       </div>
 
       <!-- <div class="form-group" *ngIf="companyForm.get('branches').controls.length>0"
@@ -41,7 +41,7 @@
         <label for="companySubBranches">Sub Branches</label>
         <textarea rows="3" class="form-control" id="companySubBranches" placeholder="Sub Branches"
           aria-describedby="companySubBranchesHelp" formControlName="subBranches"></textarea>
-        <small id="companySubBranchesHelp" class="form-text text-muted">Enter each branch sperated by comma</small>
+        <small id="companySubBranchesHelp" class="form-text text-muted">Enter each branch sperated by comma + single space</small>
       </div>
     </form>
   </div>
